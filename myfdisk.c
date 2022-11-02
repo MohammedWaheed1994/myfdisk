@@ -31,6 +31,7 @@ partitiontype Partitiontypes[4] = { {7, "HPFS/NTFS/exFAT"},
 uint8_t IsExtended = 0;
 uint32_t ExtendedStart = 0;
 uint8_t Headeronce = 0;
+uint8_t firstEbr = 0;
 
 void
 PrintParitionType (uint8_t Type)
@@ -83,7 +84,13 @@ HandlePartition (uint8_t fd, uint8_t * buf, char *argv[], uint8_t isextended_par
 	    if ((partitioninfoptr[i]).ParitionType == 5)
 	    {
 	      IsExtended = 1;
-	      ExtendedStart = (partitioninfoptr[i]).lba;
+	      if(firstEbr == 2);
+	      else
+	      {
+	     	 ExtendedStart = (partitioninfoptr[i]).lba;
+	     	 firstEbr ++;
+			}
+			
 	      continue;
 	    }
 
